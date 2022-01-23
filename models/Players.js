@@ -18,19 +18,39 @@ module.exports = (sequelize, DataTypes) => {
         },
         kills: {
             type: DataTypes.INTEGER,
-            defaultValue: 0
+            defaultValue: 0,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
         deaths: {
             type: DataTypes.INTEGER,
-            defaultValue: 0
+            defaultValue: 0,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
         mvps: {
             type: DataTypes.INTEGER,
-            defaultValue: 0
+            defaultValue: 0,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
         ping: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        in_match: {
+            type: DataTypes.INTEGER,
+            defaultValue: null
         }
     })
 

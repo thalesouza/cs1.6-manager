@@ -5,12 +5,15 @@ const router = require('express').Router()
 router.post('/matches',  matchController.addMatch)
 
 router.get('/matches', matchController.getAllMatches)
+router.get('/matches/orderByTime', matchController.getMatchesByTime)
 
 router.get('/live', matchController.liveMatches)
 
-router.get('/matches/:id ', matchController.getOneMatch)
+
+router.get('/matches/:id', matchController.getOneMatch)
 router.put('/matches/:id', matchController.updateMatch)
 router.delete('/matches/:id', matchController.deleteMatch)
+
 router.put('/matches/ct/:id', matchController.addPointCt)
 router.put('/matches/t/:id', matchController.addPointT)
 

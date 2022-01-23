@@ -6,8 +6,10 @@ const db = require('./models')
 
 // Route
 
-const router = require('./routes/matchRouter.js')
-app.use('/api', router)
+const mRouter = require('./routes/matchRouter.js')
+const pRouter = require('./routes/playerRouter.js')
+app.use('/api/', mRouter)
+app.use('/api/', pRouter)
 
 const ts = Date.now()
 let date_ob = new Date(ts)
