@@ -1,4 +1,5 @@
-const {Players} = require('../models')
+const {Players, Match} = require('../models')
+
 
 const addPlayer = async (req, res) => {
     let data = {

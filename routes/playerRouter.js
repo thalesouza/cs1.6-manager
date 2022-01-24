@@ -1,4 +1,5 @@
 const playerController = require('../controllers/playerController')
+const matchController = require('../controllers/matchController')
 const matchRouter = require('./matchRouter.js')
 
 const router = require('express').Router()
@@ -16,6 +17,7 @@ router.put('/player/:id',
 )
 
 router.put('/player/addmatch/:id',
+    matchController.finishMatch,
     playerController.addPlayerInMatch)
 
 router.delete('/player/:id',

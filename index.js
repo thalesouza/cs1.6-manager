@@ -24,9 +24,13 @@ app.use((req, res, next) =>{
     console.timeEnd('Request')
 })
 // function checkPing() {
-//     TODO
+//     const time = Date.now()
+//     let objectTime = new Date(time)
+//     // console.log(`${objectTime.getUTCHours()}:${objectTime.getUTCMinutes()}:${objectTime.getUTCSeconds()} Varrendo o servidor...`)
+//     // console.log(`database: ${db.sequelize.Players}`)
+//     console.log('Im here baby\n')
 // }
-// setInterval(checkPing, 1000 * 60)
+// setInterval(checkPing, 1000)
 db.sequelize.sync().then((req) =>{
     app.listen(3000, () =>{
         console.log('Server is running at port: 3000...')

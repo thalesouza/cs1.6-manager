@@ -57,6 +57,9 @@ const deleteMatch = async (req, res) => {
 const liveMatches = async (req, res) => {
 
     const live = await Match.findAll({where: {is_match_finished: false}})
+    if (live.length === 0){
+        return res.status(200).send('There is not match live.')
+    }
     res.status(200).send(live)
 }
 
@@ -125,6 +128,36 @@ const matchBalance = async (req, res, next) => {
     next()
 }
 
+const finishMatch = async (req, res, next) => {
+    let id = req.params.id
+    const match = req.body.id_match
+
+    const liveMatches = await Match.findAll({where: {
+        [Op.and]: [
+            {idmatch: match},
+            {is_match_finished: false}
+        ]
+        }})
+    let scoreCt = 0
+    let scoreT = 0
+    let time_match = 0
+
+    for (let i of liveMatches){
+        scoreCt = (i.ct_score)
+        scoreT = (i.t_score)
+        time_match = i.time_match
+    }
+
+    if(scoreCt === 16 || scoreT === 16 || time_match === 0){
+        for (let i of liveMatches){
+            i.is_match_finished == true
+        }
+        return res.status(400).send('Match is over. Cannot add player to the match.')
+    }
+
+    next()
+}
+
 module.exports = {
     addMatch,
     getAllMatches,
@@ -135,5 +168,6 @@ module.exports = {
     liveMatches,
     addPointCt,
     addPointT,
-    matchBalance
+    matchBalance,
+    finishMatch
 }
