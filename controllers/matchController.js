@@ -10,7 +10,8 @@ const addMatch = async (req, res) => {
         t_players: req.body.t_players,
         ct_score: req.body.ct_score,
         t_score: req.body.t_score,
-        start_time_match: Date.now()
+        start_time_match: Date.now(),
+        endMatch: Date.now() + 240000
     }
 
     const match = await Match.create(stats)
@@ -58,7 +59,7 @@ const liveMatches = async (req, res) => {
 
     const live = await Match.findAll({where: {is_match_finished: false}})
     if (live.length === 0){
-        return res.status(200).send('There is not match live.')
+        return res.status(200).send('There is no match live.')
     }
     res.status(200).send(live)
 }
@@ -140,22 +141,31 @@ const finishMatch = async (req, res, next) => {
         }})
     let scoreCt = 0
     let scoreT = 0
-    let time_match = 0
+    let endMatch
 
     for (let i of liveMatches){
         scoreCt = (i.ct_score)
         scoreT = (i.t_score)
-        time_match = i.time_match
+        endMatch = i.endMatch
     }
 
-    if(scoreCt === 16 || scoreT === 16 || time_match === 0){
+    if(scoreCt === 16 || scoreT === 16 || Date.now() > endMatch){
         for (let i of liveMatches){
-            i.is_match_finished == true
+            i.is_match_finished = true
+            const updateBoolean = {
+                "is_match_finished": true
+            }
+            Match.update(updateBoolean, {where: {idmatch: id}})
+            console.log(i.is_match_finished)
         }
         return res.status(400).send('Match is over. Cannot add player to the match.')
     }
 
     next()
+}
+
+const checkMatchIsLive = async (req, res, next) => {
+    const liveMatches = await Match.findAll()
 }
 
 module.exports = {

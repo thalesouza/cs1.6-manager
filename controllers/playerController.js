@@ -16,7 +16,27 @@ const addPlayer = async (req, res) => {
 
 const addPlayerInMatch = async (req, res, next) => {
     const id = req.params.id
-    // console.log(Object.keys(req.body).length)
+
+    // Get idmatch from body
+    let idFromMatch;
+    for (let i in req.body){
+        if (i === "id_match"){
+            idFromMatch = req.body.id_match
+        }
+    }
+    // Get ct and t already playing
+    const isMatchFull = await Match.findAll({where: {idmatch: idFromMatch}})
+    let ctPlayers, tPlayers, maxPlayers
+    for (let j of isMatchFull) {
+        maxPlayers = j.max_players
+        ctPlayers = j.ct_players
+        tPlayers = j.ct_players
+    }
+    let playersInMatch = ctPlayers + tPlayers
+    if (playersInMatch > maxPlayers){
+        return res.status(400).send('Match is full! Try again later.')
+    }
+
     if (Object.keys(req.body).length > 1 || Object.keys(req.body).length === 0){
         return res.status(400).send('You can only add match here.')
     } else{
@@ -27,6 +47,7 @@ const addPlayerInMatch = async (req, res, next) => {
             }
         }
     }
+
     next()
 }
 

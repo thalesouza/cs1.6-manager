@@ -47,9 +47,12 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true
             },
         },
-        time_match: {
-            type: DataTypes.INTEGER,
-            defaultValue: 240
+        endMatch: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
         is_match_finished: {
             type: DataTypes.BOOLEAN,

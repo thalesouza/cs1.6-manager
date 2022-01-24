@@ -16,7 +16,7 @@ router.put('/player/:id',
     playerController.updatePlayer
 )
 
-router.put('/player/addmatch/:id',
+router.put('/player/:id/addmatch',
     matchController.finishMatch,
     playerController.addPlayerInMatch)
 
