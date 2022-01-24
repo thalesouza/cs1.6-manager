@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         nickname: {
             type: DataTypes.STRING,
+            defaultValue: "Unnamed Soldier",
             allowNull: false,
             validate: {
                 notEmpty: true
