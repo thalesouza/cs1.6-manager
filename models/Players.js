@@ -49,6 +49,10 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true
             }
+        },
+        id_match: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     })
 

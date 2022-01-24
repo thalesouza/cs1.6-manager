@@ -15,5 +15,11 @@ router.put('/player/:id',
     playerController.updatePlayer
 )
 
+router.put('/player/addmatch/:id',
+    playerController.addPlayerInMatch)
+
+router.delete('/player/:id',
+    playerController.removePlayerFromMatch)
+
 
 module.exports = router
