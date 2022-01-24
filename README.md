@@ -25,5 +25,5 @@ must be removed. - TODO
 * Change map in server  ✔️
 * Add score to CT/T; /ct/:id  ✔️
 * General stats from player  ✔️
-* Add player in match - TODO
-* Remove player from match - TODO
+* Add player in match -  ✔️
+* Remove player from match -  ✔️
