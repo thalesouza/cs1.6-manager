@@ -7,7 +7,7 @@ Backend application to manage Counter Strike 1.6 matches
 * Players in match must have: Nickname, kills, deaths, mvps and ping  ✔️
 * Matches should finish when time is over or team reaches 16 points. After finish, player is not allowed to join. - TODO
 * Matches should be balanced, (diff between CT and T shouldn't be more than 1) ✔️
-* Players stats could be added (through api) at the moment they join the server.  - TODO
+* Players stats can be added (through api) at the moment they join the server.  - TODO
 * Routine to check every live match (1 per minute) and check every player ping. If more than 100 for 2 minutes, player
 must be removed. - TODO
 
