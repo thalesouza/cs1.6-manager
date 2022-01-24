@@ -1,4 +1,6 @@
-const {Match} = require('../models')
+const {Op} = require("sequelize")
+const {Match, Players} = require('../models')
+
 
 const addMatch = async (req, res) => {
     let stats = {
@@ -85,6 +87,43 @@ const addPointT = async (req, res) => {
     res.status(200).send(point)
 }
 
+const matchBalance = async (req, res, next) => {
+    // let id = req.params.id
+
+    let ctPlayers = 0
+    let tPlayers = 0
+    const players = await Match.findAll({where:
+            {[Op.and]: [
+                    {ct_players: {
+                        [Op.gt]: 0
+                        }},
+                    {t_players: {
+                        [Op.gt]: 0
+                        }}
+                ]
+                }})
+    for (let i of players){
+        ctPlayers = i.ct_players
+        tPlayers = i.t_players
+    }
+
+    for (let c in req.body){
+        if (c === 'ct_players'){
+            if (req.body.ct_players > tPlayers + 1){
+                return res.status(400).send('Cannot add CT. It will unbalance the match.')
+            }
+        }
+    }
+    for (let t in req.body){
+        if(t === 't_players'){
+            if(req.body.t_players > ctPlayers + 1){
+                return res.status(400).send('Cannot add T. It will unbalance the match.')
+            }
+        }
+    }
+
+    next()
+}
 
 module.exports = {
     addMatch,
@@ -95,5 +134,6 @@ module.exports = {
     deleteMatch,
     liveMatches,
     addPointCt,
-    addPointT
+    addPointT,
+    matchBalance
 }

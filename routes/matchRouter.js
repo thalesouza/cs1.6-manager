@@ -11,7 +11,7 @@ router.get('/live', matchController.liveMatches)
 
 
 router.get('/matches/:id', matchController.getOneMatch)
-router.put('/matches/:id', matchController.updateMatch)
+router.put('/matches/:id', matchController.matchBalance, matchController.updateMatch)
 router.delete('/matches/:id', matchController.deleteMatch)
 
 router.put('/matches/ct/:id', matchController.addPointCt)

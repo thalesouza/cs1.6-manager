@@ -1,3 +1,4 @@
+const {Match} = require('./Match')
 module.exports = (sequelize, DataTypes) => {
     const Players = sequelize.define("Players", {
         idPlayer: {
@@ -47,10 +48,6 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true
             }
-        },
-        in_match: {
-            type: DataTypes.INTEGER,
-            defaultValue: null
         }
     })
 

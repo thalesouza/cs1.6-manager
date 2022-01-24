@@ -73,11 +73,15 @@ const checkBodyNickname = async (req, res, next) => {
     next()
 }
 
-const checkPlayerIsPlaying = async (res, req) => {
+const canUpdateUser = async (req, res, next) => {
     let id = req.params.id
     const players = await Players.findOne({where: {idPlayer: id}})
 
-
+    if (players.id_match === null){
+        return res.status(400).send('You can not change this player because it is not playing.')
+    }
+    console.log('showing players again:\n' + players + '\nAnd here in match' + players.in_match)
+    next()
 
 }
 
@@ -87,5 +91,6 @@ module.exports = {
     getOnePlayer,
     updatePlayer,
     checkPlayerInDb,
-    checkBodyNickname
+    checkBodyNickname,
+    canUpdateUser
 }
