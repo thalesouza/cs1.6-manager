@@ -64,9 +64,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
-    Match.associate = function(models){
-        Match.hasMany(models.Players)
-    }
+    // Match.associate = function(models){
+    //     Match.hasMany(models.Players)
+    // }
 
     return Match
 

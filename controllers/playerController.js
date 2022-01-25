@@ -25,6 +25,22 @@ const addPlayerInMatch = async (req, res, next) => {
             idFromMatch = req.body.id_match
         }
     }
+
+    // Validate if match is finished
+    const isThisMatchFinished = await Match.findAll({
+        where: {
+            [Op.and]: [
+                {idmatch: idFromMatch},
+                {is_match_finished: true}
+            ]}
+    })
+    for (let i of isThisMatchFinished){
+        if (i.is_match_finished === true){
+            return res.status(400).send('Match is over. Cannot add player!')
+        }
+    }
+
+
     // Get ct and t already playing
     const isMatchFull = await Match.findAll({where: {idmatch: idFromMatch}})
     let ctPlayers, tPlayers, maxPlayers
@@ -98,8 +114,6 @@ const checkPlayerInDb = async (req, res, next) => {
     }
 
 
-    // req.player = player
-    // res.status(200).send(player)
     next()
 }
 
