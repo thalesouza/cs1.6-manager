@@ -1,6 +1,22 @@
 # cs1.6-manager
 
 Backend application to manage Counter Strike 1.6 matches
+<hr>
+
+### How to run
+Create a database MySQL named "manager" or whatever you want and change it at `config/config.json`
+as your login and password too.
+
+Run `npm install`
+
+then run `npm index.js`
+
+Start Postman and load the collection.
+
+
+
+Have fun!
+
 
 ### What is expected:
 * After every match is add, the players must be 0 ✔️

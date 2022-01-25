@@ -1,3 +1,4 @@
+const {Op} = require("sequelize")
 const {Players, Match} = require('../models')
 
 
@@ -130,6 +131,43 @@ const canUpdateUser = async (req, res, next) => {
     next()
 
 }
+
+let getOverPing = []
+
+setInterval(async () =>{
+    const getPlayersInMatch = await Players.findAll({where: {
+        id_match: {
+            [Op.gt]: 0
+        }
+        }})
+    const removePlayerFromMatch = {
+        "id_match": 0
+    }
+
+    const count = (arr, value) => {
+        let count = 0
+        for (let i = 0; i < arr.length; i++){
+            if(arr[i] === value){
+                count++
+            }
+        }
+        return count
+    }
+
+    for (let i = 0; i < getPlayersInMatch.length; i++){
+        if(getPlayersInMatch[i].ping > 100){
+            getOverPing.push(getPlayersInMatch[i].idPlayer)
+        }
+
+        if (count(getOverPing, getPlayersInMatch[i].idPlayer) >= 2){
+            await Players.update(removePlayerFromMatch, {where: {idPlayer: getPlayersInMatch[i].idPlayer}})
+            getOverPing.shift()
+            getOverPing.pop()
+        }
+    }
+
+
+}, 60000)
 
 module.exports = {
     addPlayer,

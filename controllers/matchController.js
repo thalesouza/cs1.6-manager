@@ -92,7 +92,7 @@ const addPointT = async (req, res) => {
 }
 
 const matchBalance = async (req, res, next) => {
-    // let id = req.params.id
+    let id = req.params.id
 
     let ctPlayers = 0
     let tPlayers = 0
@@ -103,7 +103,8 @@ const matchBalance = async (req, res, next) => {
                         }},
                     {t_players: {
                         [Op.gt]: 0
-                        }}
+                        }},
+                    {idmatch: id}
                 ]
                 }})
     for (let i of players){
@@ -149,7 +150,7 @@ const finishMatch = async (req, res, next) => {
         endMatch = i.endMatch
     }
 
-    if(scoreCt === 16 || scoreT === 16 || Date.now() > endMatch){
+    if(scoreCt === 16 || scoreT === 16 || Date.now() >= endMatch){
         for (let i of liveMatches){
             i.is_match_finished = true
             const updateBoolean = {
@@ -164,9 +165,6 @@ const finishMatch = async (req, res, next) => {
     next()
 }
 
-const checkMatchIsLive = async (req, res, next) => {
-    const liveMatches = await Match.findAll()
-}
 
 module.exports = {
     addMatch,
