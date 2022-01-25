@@ -14,8 +14,8 @@ router.get('/matches/:id', matchController.getOneMatch)
 router.put('/matches/:id', matchController.matchBalance, matchController.updateMatch)
 router.delete('/matches/:id', matchController.deleteMatch)
 
-router.put('/matches/ct/:id', matchController.addPointCt)
-router.put('/matches/t/:id', matchController.addPointT)
+router.put('/matches/:id/ct', matchController.addPointCt)
+router.put('/matches/:id/t', matchController.addPointT)
 
 
 module.exports = router

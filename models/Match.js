@@ -63,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         }
     })
+
+    Match.associate = function(models){
+        Match.hasMany(models.Players)
+    }
+
     return Match
 
 }

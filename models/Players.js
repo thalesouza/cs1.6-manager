@@ -56,6 +56,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
+    Players.associate = function(models){
+        Players.belongsTo(models.Match)
+    }
+
+
     return Players
 
 }
