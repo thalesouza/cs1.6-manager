@@ -25,7 +25,7 @@ Have fun!
 * Matches should be balanced, (diff between CT and T shouldn't be more than 1) ✔️
 * Players stats can be added (through api) at the moment they join the server.  - ✔️
 * Routine to check every live match (1 per minute) and check every player ping. If more than 100 for 2 minutes, player
-must be removed. - TODO
+must be removed.  ✔️
 
 ### Tech stack:
 * Javascript
