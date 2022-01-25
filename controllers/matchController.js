@@ -165,6 +165,26 @@ const finishMatch = async (req, res, next) => {
     next()
 }
 
+setInterval(async () => {
+    const liveMatches = await Match.findAll({where: {is_match_finished: false}})
+
+    const forceEnd = {
+        "is_match_finished": true
+    }
+
+    for (i of liveMatches){
+        if (Date.now() >= i.endMatch){
+            console.log(`Match id: ${i.idmatch} is over!`)
+            await Match.update(forceEnd, {where: {idmatch: i.idmatch}})
+        }
+        if (i.ct_score >= 16 | i.t_score >= 16){
+            console.log(`Match id: ${i.idmatch} is over!`)
+            await Match.update(forceEnd, {where: {idmatch: i.idmatch}})
+        }
+    }
+
+}, 60000)
+
 
 module.exports = {
     addMatch,
